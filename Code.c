@@ -1,18 +1,18 @@
-/*C program to design a TIC  TAC TOE game.*/
+/C program to design a TIC  TAC TOE game./
 
 #include <stdio.h>
 #include <stdlib.h>
 
-/*print matrix*/
+/print matrix/
 void printMatrix(char val);
-/*update value in matrix*/
+/update value in matrix/
 void insertValue(int i, int j, unsigned char user);
-/*check matrix is full or not*/
+/check matrix is full or not/
 unsigned char isFull(void);
-/*check game is completed or not.*/
+/check game is completed or not./
 unsigned char isOver(void);
 
-unsigned char mat[3][3] = { '_', '_', '_', '_', '_', '_', '_', '_', '_' };
+unsigned char mat[3][3] = { '', '', '', '', '', '', '', '', '_' };
 unsigned char usertern = 0;
 unsigned char onlyOnce = 0;
 
@@ -27,7 +27,7 @@ int main()
 
     printf("Enter name of user2 :");
     gets(user2);
-    
+    fflush(stdin);    #Modified By Kalpak Kanungo
 
 again:
     system("clear");
@@ -42,26 +42,26 @@ again:
     winner = isOver();
 
     if (winner) {
-        printf("\n *** Congratulations Dear %s ,\n     You have won the game . !!!!", ((winner == 'X') ? user1 : user2));
+        printf("\n * Congratulations Dear %s ,\n     You have won the game . !!!!", ((winner == 'X') ? user1 : user2));
         goto end;
     }
 
     if (!isFull()) {
-        printf("\n *** Game Over .");
+        printf("\n * Game Over .");
         goto end;
     }
 
 repeat:
     fflush(stdin);
-    printf("\n *** %s , Enter value (00-22) seperated by space :", (usertern == 0x00 ? user1 : user2));
+    printf("\n * %s , Enter value (00-22) seperated by space :", (usertern == 0x00 ? user1 : user2));
     scanf("%d%d", &ival, &jval);
     if ((ival > 2 || ival < 0) || (jval > 2 || jval < 0)) {
-        printf("\n *** ERROR : Invalid index, try again !!!");
+        printf("\n * ERROR : Invalid index, try again !!!");
         goto repeat;
     }
     if (mat[ival][jval] != '_') {
-        printf("\n *** ERROR : Already filled,try again !!!");
-        
+        printf("\n * ERROR : Already filled,try again !!!");
+        goto repeat;     #Modified by Kalpak Kanungo
     }
     insertValue(ival, jval, usertern);
     usertern = !usertern;
@@ -76,12 +76,12 @@ void printMatrix(char val)
 {
     unsigned char i, j;
     if (!val) {
-        /*For blank matrix*/
+        /For blank matrix/
 
         for (i = 0; i < 3; i++) {
             printf("\t\t\t");
             for (j = 0; j < 3; j++) {
-                
+                printf("[%3c ] ", mat[i][j]);     #Modified By Kalpak Kanungo
             }
             printf("\n");
         }
@@ -123,7 +123,7 @@ unsigned char isOver(void)
     unsigned char storeChar = 0, flag;
     int sum = 0;
     // case 1
-    /*sum of 'X'+'X'+'X' = 264 and sum of 'O'+'O'+'O' =237*/
+    /sum of 'X'+'X'+'X' = 264 and sum of 'O'+'O'+'O' =237/
     flag = 0;
     for (i = 0; i < 3; i++) {
         sum = 0;
@@ -134,8 +134,8 @@ unsigned char isOver(void)
             storeChar = mat[i][j];
         }
 
-        if (sum == 237 || sum == 264) {
-            
+        if (sum == 237 || sum == 264) {     
+            return storeChar;        #Modified By Kalpak Kanungo
         }
     }
 
@@ -149,7 +149,9 @@ unsigned char isOver(void)
             storeChar = mat[j][i];
         }
 
-        
+        if (sum == 237 || sum == 264) {                         #Modified By Kalpak Kanungo
+            return storeChar;
+        }
     }
 
     // case 3
@@ -165,7 +167,7 @@ unsigned char isOver(void)
             }
         }
         if (sum == 237 || sum == 264) {
-            
+            return storeChar;     #Modified By Kalpak Kanungo
         }
     }
 
